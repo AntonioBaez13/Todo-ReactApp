@@ -5,22 +5,29 @@
   align-self: center;
 }
 
+.formContainer{
+  margin: 5px;
+  position: relative;
+  display: inline-block;
+}
+
 /*Text field for the Specify Todo*/
 .inputField{
-  height: 30px;
+  min-height: 40px;
   border: 3px solid #555;
-  border-radius: 25px;
-  padding-left: 15px;
+  border-radius: 20px;
+  text-align: center;
+  padding: 2px 4px;
 }
 
 /*Drop down button layout and size*/
 .dropbtn{
-  min-width: 155px;
+  min-width: 200px;
   background-color: #41ced8;
   color: white;
   padding:5%;
-  font-size: 16px;
-  border-radius: 25px;
+  font-size: 24px;
+  border-radius: 20px;
   cursor: pointer;
 }
 

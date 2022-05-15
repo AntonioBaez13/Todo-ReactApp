@@ -1,34 +1,23 @@
 import React, { useState } from 'react';
 import './ListOfTodos.css';
 
-function ListOfTodos(props){
-    return(
-        <div className='todo-list-container'>
-            <div className='header'>
-                <div className='text-truncate header-title'></div>
-            </div>
-            <div className='widget-content'>
-                <TodoList></TodoList>
-            </div>
+function Header(props){
+    return (
+        <div className='header'>
+            <div className='text-truncate header-title'>{props.title}</div>
         </div>
-    )
+    );   
 }
 
-function TodoList(props) {
+function TodoList(props){
     return (
-        <div className='todo-list-container'>
-            <div className='header'>
-                <div className='text-truncate header-title'>Todo List</div>
-            </div>
-            <div className='widget-content'>
-            {props.todos.map((todo, i) => <TodoItem key={i} {...todo} />)}
-        </div>
+        <div>
+            { props.todos.map((todo, i) => <TodoItem key={i} {...todo} />) }
         </div>
     );
 }
 
 function TodoItem(props) {
-    //TODO: Here I need to handle the "onClicked Checkbox" to "hide" the TodoItem
     return (
         <label className='container'>{props.todo}
             <input type="checkbox"></input>
@@ -37,4 +26,15 @@ function TodoItem(props) {
     );
 }
 
-export default TodoList;
+function TodoContainer(props) {
+    return (
+        <div className='todo-list-container'>
+            <Header title={'Todo List'}/>
+            <div className='widget-content'>
+                <TodoList todos={props.todos}/>
+            </div>
+        </div>
+    );
+}
+
+export default TodoContainer;
