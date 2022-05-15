@@ -41,12 +41,13 @@
 .avatar{
     border-radius: 50%;
     display: inline-block;
-    height: 36px;
+    height: 40px;
     margin: 0 10px;
     overflow: hidden;
     position: relative;
     vertical-align: middle;
-    width: 36px;
+    width: 40px;
+    align-self: center;
 }
 
 .avatar-initials{
@@ -54,7 +55,7 @@
     display: inline-block;
     font-weight: bold;
     height: 100%;
-    line-height: 36px;
+    line-height: 40px;
     text-align: center;
     vertical-align: middle;
     width: 100%;

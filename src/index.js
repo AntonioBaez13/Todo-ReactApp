@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import TodoContainer from './ListOfTodos';
+import {TodoContainer} from './ListOfTodos';
 import AddTodo from './AddTodo';
 import TopBar from './TopBar';
+import TestersContainer from './ListOfTesters';
 
 function App(props) {
     const [todo, setTodo] = useState([]);
@@ -16,7 +17,10 @@ function App(props) {
             <div className='box'>
                 <AddTodo addTodo={addTodo} todos={todo} />
             </div>
-            <TodoContainer todos={todo} />
+            <div className='main-content'>
+                <TodoContainer todos={todo} />
+                <TestersContainer />
+            </div>
         </div>
     );
 }

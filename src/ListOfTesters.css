@@ -1,0 +1,35 @@
+.tester-card{
+    margin: 2px;
+    display: flex;
+    margin-bottom: 8px;
+    border-radius: 10px;
+}
+
+.tester-card:hover {
+    background-color: rgb(221, 221, 221);
+}
+
+.tester-card .info {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.tester-card .info .name{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.tester-card .info .team{
+    font-size: 14px;
+    font-style: italic;
+}
+
+.tester-card .info .experience{
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.bold {
+    font-weight: bold;
+}

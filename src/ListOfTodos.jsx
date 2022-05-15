@@ -37,4 +37,4 @@ function TodoContainer(props) {
     );
 }
 
-export default TodoContainer;
+export {TodoContainer, Header};
