@@ -1,0 +1,70 @@
+.topbar{
+    background-color:azure;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+    height: 50px;
+    left:0;
+    right: 0;
+    top: 0;
+    min-width: 768px;
+    position: fixed;
+    z-index: 1020;
+    text-align: center;
+}
+
+.topbar-title{
+    color: #333;
+    display: inline-block;
+    font-size: 28px;
+    letter-spacing: 0;
+    margin-top: 5px;
+    vertical-align: middle;
+    text-transform: none;
+}
+
+.topbar-menu-button{
+    border: transparent;
+    background-color: transparent;
+    color: #818da0;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.topbar-nav{
+    margin-right: 5px;
+    margin-top: 5px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.avatar{
+    border-radius: 50%;
+    display: inline-block;
+    height: 36px;
+    margin: 0 10px;
+    overflow: hidden;
+    position: relative;
+    vertical-align: middle;
+    width: 36px;
+}
+
+.avatar-initials{
+    background: #e5e5e5;
+    display: inline-block;
+    font-weight: bold;
+    height: 100%;
+    line-height: 36px;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.arrow-icon{
+    border: solid grey;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}

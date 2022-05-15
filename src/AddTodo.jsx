@@ -29,7 +29,7 @@ function Dropdown(props) {
 
 function Input(props) {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form className='formContainer' onSubmit={props.handleSubmit}>
             <input
                 spellCheck='true'
                 className='inputField'

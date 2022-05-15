@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import TodoList from './ListOfTodos';
+import TodoContainer from './ListOfTodos';
 import AddTodo from './AddTodo';
-
+import TopBar from './TopBar';
 
 function App(props) {
     const [todo, setTodo] = useState([]);
@@ -12,8 +12,11 @@ function App(props) {
     };
     return (
         <div>
-            <div className='box'><AddTodo addTodo={addTodo} todos={todo} /></div>
-            <TodoList todos={todo} />
+            <TopBar/>
+            <div className='box'>
+                <AddTodo addTodo={addTodo} todos={todo} />
+            </div>
+            <TodoContainer todos={todo} />
         </div>
     );
 }
