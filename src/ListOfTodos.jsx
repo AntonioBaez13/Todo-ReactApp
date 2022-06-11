@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import './ListOfTodos.css';
 
 function Header(props){
@@ -18,6 +20,15 @@ function TodoList(props){
 }
 
 function TodoItem(props) {
+    return (
+        <div className='todo-item'>
+        <TodoTextAndCheckbox todo={props.todo}/>
+        <button className='edit-todo'><FontAwesomeIcon icon={faPenToSquare}/></button>
+        </div>
+    );
+}
+
+function TodoTextAndCheckbox(props){
     return (
         <label className='container'>{props.todo}
             <input type="checkbox"></input>
