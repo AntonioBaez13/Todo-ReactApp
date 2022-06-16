@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import './ListOfTodos.css';
+import Modal from './EditTodoModal'
 
 function Header(props){
     return (
@@ -20,10 +21,16 @@ function TodoList(props){
 }
 
 function TodoItem(props) {
+    const[isOpen, setIsOpen] = useState(false);
+
+    const openModal = () => setIsOpen(true);
+    const closeModal = () => setIsOpen(false);
+
     return (
         <div className='todo-item'>
         <TodoTextAndCheckbox todo={props.todo}/>
-        <button className='edit-todo'><FontAwesomeIcon icon={faPenToSquare}/></button>
+        <button className='edit-todo' onClick={openModal}><FontAwesomeIcon icon={faPenToSquare}/></button>
+        <Modal close={closeModal} show={isOpen} modalTitle = {props.todo}></Modal>
         </div>
     );
 }
