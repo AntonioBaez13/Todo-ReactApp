@@ -4,6 +4,8 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import './ListOfTodos.css';
 import Modal from './EditTodoModal'
 
+//const axios = require('axios').default;
+
 function Header(props){
     return (
         <div className='header'>
@@ -45,6 +47,15 @@ function TodoTextAndCheckbox(props){
 }
 
 function TodoContainer(props) {
+    //Axios currently runs the GET before the POST has finished, so i'm not getting the latest added item
+    //Create here an state, in which we append the new added value to the end each time
+    // async function getTodos(){
+    //    const response = await (await axios.get('https://localhost:5000/api/Todo')).data;
+    //     console.log('get has been called')
+    //     console.log(response)
+    // }
+    //getTodos();
+
     return (
         <div className='todo-list-container'>
             <Header title={'Todo List'}/>

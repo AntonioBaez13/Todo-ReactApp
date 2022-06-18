@@ -3,8 +3,9 @@ import './AddTodo.css';
 
 const utils = {
     teams: ['Daybreak', 'DevOps', 'Others', 'Mobile'],
-    priority: [1, 2, 3, 4, 5],
 }
+
+const axios = require('axios').default;
 
 function TodoObject(team, todo, priority) {
     this.team = team;
@@ -44,20 +45,27 @@ function Input(props) {
 
 function AddTodo(props) {
     const [team, setTeam] = useState('');
-    const [priority, setPriority] = useState('');
     const [value, setValue] = useState('');
 
-    const addNewTodoItem = (team, x, priority) => {
-        const obj1 = new TodoObject(team, x, priority);
+    const addNewTodoItem = (team, x) => {
+        const obj1 = new TodoObject(team, x);
         props.addTodo(obj1);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addNewTodoItem(team, value, priority);
+        addNewTodoItem(team, value);
+        axios.post('https://localhost:5000/api/Todo',{
+            'task':value,
+            'created':new Date(),
+            'teamName': team ==='' ? null : team
+        }).then(function(response){
+            console.log(response);
+        }).catch(function (error){
+            console.log(error);
+        });
         setValue('');
         setTeam('');;
-        setPriority('');
     };
 
     return (
@@ -66,8 +74,11 @@ function AddTodo(props) {
                 value={team} setValue={setTeam} />
             <Input handleSubmit={handleSubmit}
                 value={value} setValue={setValue} />
-            <Dropdown list={utils.priority} defaultText={"Specify Priority"}
-                value={priority} setValue={setPriority} />
+            <div className='dropdown'>
+                <button className='dropbtn' onClick={handleSubmit}>
+                    Add Item
+                </button>
+            </div>
         </div>
     );
 }
