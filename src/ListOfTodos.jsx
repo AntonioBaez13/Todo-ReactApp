@@ -17,12 +17,13 @@ function Header(props){
 function TodoList(props){
     return (
         <div>
-            { props.todos.map((todo, i) => <TodoItem key={i} {...todo} />) }
+            { props.todos.map(todo => <TodoItem key={todo.id} {...todo} />) }
         </div>
     );
 }
 
 function TodoItem(props) {
+    const todo = props;
     const[isOpen, setIsOpen] = useState(false);
 
     const openModal = () => setIsOpen(true);
@@ -30,9 +31,9 @@ function TodoItem(props) {
 
     return (
         <div className='todo-item'>
-        <TodoTextAndCheckbox todo={props.todo}/>
+        <TodoTextAndCheckbox todo={todo.task}/>
         <button className='edit-todo' onClick={openModal}><FontAwesomeIcon icon={faPenToSquare}/></button>
-        <Modal close={closeModal} show={isOpen} modalTitle = {props.todo}></Modal>
+        <Modal close={closeModal} show={isOpen} modalContent = {todo}></Modal>
         </div>
     );
 }
@@ -47,14 +48,9 @@ function TodoTextAndCheckbox(props){
 }
 
 function TodoContainer(props) {
-    //Axios currently runs the GET before the POST has finished, so i'm not getting the latest added item
-    //Create here an state, in which we append the new added value to the end each time
-    // async function getTodos(){
-    //    const response = await (await axios.get('https://localhost:5000/api/Todo')).data;
-    //     console.log('get has been called')
-    //     console.log(response)
-    // }
-    //getTodos();
+    //I need to perform some kind of OnMount,
+    //so that when mounting i can get all the items that are on the 
+    //database for today
 
     return (
         <div className='todo-list-container'>

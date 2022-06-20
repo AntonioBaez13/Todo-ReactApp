@@ -7,12 +7,6 @@ const utils = {
 
 const axios = require('axios').default;
 
-function TodoObject(team, todo, priority) {
-    this.team = team;
-    this.todo = todo;
-    this.priority = priority;
-}
-
 function Dropdown(props) {
     const myList = props.list.map((item, i) => (
         <a key={i} onClick={() => props.setValue(item)}>{item}</a>
@@ -47,23 +41,14 @@ function AddTodo(props) {
     const [team, setTeam] = useState('');
     const [value, setValue] = useState('');
 
-    const addNewTodoItem = (team, x) => {
-        const obj1 = new TodoObject(team, x);
-        props.addTodo(obj1);
-    };
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        addNewTodoItem(team, value);
-        axios.post('https://localhost:5000/api/Todo',{
+        const resp = await axios.post('https://localhost:5000/api/Todo',{
             'task':value,
             'created':new Date(),
             'teamName': team ==='' ? null : team
-        }).then(function(response){
-            console.log(response);
-        }).catch(function (error){
-            console.log(error);
         });
+        props.addTodo(resp.data)
         setValue('');
         setTeam('');;
     };

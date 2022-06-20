@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsersRectangle,faXmark, faNoteSticky, faBarsProgress, faClock, faCalendarXmark, 
-    faPeopleGroup, faCalendar} from '@fortawesome/free-solid-svg-icons';
+import { faUsersRectangle,faXmark, faNoteSticky, faBarsProgress, faClock, 
+    faCalendarXmark, faPeopleGroup} from '@fortawesome/free-solid-svg-icons';
 import DatePicker from 'react-datepicker'
 import './EditTodoModal.css';
 import "react-datepicker/dist/react-datepicker.css";
@@ -15,7 +15,7 @@ function Modal(props){
         <div className='modal-window' onClick={props.close}>
             <div className='modal-content' onClick={e=> e.stopPropagation()}>
                 <ModalHeader close = {props.close}/>
-                <ModalBody title={props.modalTitle}/>
+                <ModalBody content={props.modalContent}/>
                 <ModalFooter/>
             </div>
         </div>
@@ -31,10 +31,13 @@ function ModalHeader(props){
 }
 
 function ModalBody(props) {
+    const content = props.content;
+    console.log(content)
     return (
         <div className='modal-body'>
             <div>
-                <h2 className='modal-title-format' contentEditable={true}>{props.title}</h2>
+                <h2 className='modal-title-format' contentEditable={true} 
+                suppressContentEditableWarning={true}>{content.task}</h2>
             </div>
             <div className='subsection-pairs'>
                 <div>
