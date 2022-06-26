@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from './ListOfTodos';
+import { getFormattedDate } from './GlobalFunctions';
 import './ListOfTesters.css';
 import './ListOfTodos.css';
 import './TopBar.css';
 
-const testData = [
-    { firstName: "Antonio", lastName: "Baez", team: "Daybreak", joined: "July 2021", codeReviewer: "Yes"},
-    { firstName: "Ross", lastName: "Doe", team: "Galaxy", joined: "July 2019", codeReviewer: "Yes"},
-    { firstName: "Jean", lastName: "Paul", team: "KnightFall", joined: "April 2018", codeReviewer: "Yes"},
-    { firstName: "Igor", lastName: "Culpin", team: "Daybreak", joined: "March 2022", codeReviewer: "No"},
-];
+const axios = require('axios').default;
 
 function TestersContainer(props) {
+    const [testersData, setTesterData] = useState();
+    const [isLoading, setLoading] = useState(true);
+
+    useEffect(() => {
+        axios.get('https://localhost:5000/api/Testers').then(response => {
+            setTesterData(response.data);
+            setLoading(false);
+        });
+    },[]);
+
+    if (isLoading) {
+        //We are trying to retreive the elements from the database
+        //So load, and then render
+        return (null);
+    }
+
     return (
         <div className='todo-list-container'>
             <Header title={'Testers List'} />
             <div className='widget-content'>
-                <CardList testers={testData} />
+                <CardList testers={testersData} />
             </div>
         </div>
     );
@@ -25,19 +37,21 @@ function TestersContainer(props) {
 function CardList(props){
     return(
         <div>
-            { props.testers.map((tester, i) => <Card key={i} {...tester} />)}
+            { props.testers.map(tester => <Card key={tester.id} {...tester} />)}
         </div>
     );
 }
 
 function Card(props){
+    const tester = props;
+
     const getName = () => {
-        return `${props.firstName} ${props.lastName}`;
+        return `${tester.firstName} ${tester.lastName}`;
     }
 
     const getNameInitials = () => {
-        let firstNameFirstLetter = props.firstName.charAt(0);
-        let lastNameFirstLetter = props.lastName.charAt(0);
+        let firstNameFirstLetter = tester.firstName.charAt(0);
+        let lastNameFirstLetter = tester.lastName.charAt(0);
         return `${firstNameFirstLetter}${lastNameFirstLetter}`.toUpperCase();
     };
 
@@ -48,10 +62,10 @@ function Card(props){
             </span>
             <div className='info'>
                 <div className='name'>{getName()}</div>
-                <div className='team'>{props.team}</div>
+                <div className='team'>{tester.teamName}</div>
                 <div className='experience'>
-                    <div><span className='bold'>Hub Since: </span> {props.joined}</div>
-                    <div className='reviewer'><span className='bold'>Code Reviewer: </span> {props.codeReviewer}</div>
+                    <div><span className='bold'>Hub Since: </span> {getFormattedDate(tester.joinedHub)}</div>
+                    <div className='reviewer'><span className='bold'>Code Reviewer: </span> {tester.codeReviewer === true ? "Yes" : "No"}</div>
                 </div>
             </div>
         </div>

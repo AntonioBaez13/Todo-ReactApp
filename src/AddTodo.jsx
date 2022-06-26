@@ -1,26 +1,11 @@
 import React, { useState } from 'react';
 import './AddTodo.css';
-
+import { Dropdown } from './GlobalFunctions';
 const utils = {
     teams: ['Daybreak', 'DevOps', 'Others', 'Mobile'],
 }
 
 const axios = require('axios').default;
-
-function Dropdown(props) {
-    const myList = props.list.map((item, i) => (
-        <a key={i} onClick={() => props.setValue(item)}>{item}</a>
-    ));
-
-    return (
-        <div className='dropdown'>
-            <button className='dropbtn'>{props.value.length === 0
-                ? props.defaultText
-                : props.value}</button>
-            <div className='dropdown-content'>{myList}</div>
-        </div>
-    );
-}
 
 function Input(props) {
     return (
@@ -56,7 +41,7 @@ function AddTodo(props) {
     return (
         <div className='rowC'>
             <Dropdown list={utils.teams} defaultText={"Choose a team"}
-                value={team} setValue={setTeam} />
+                value={team} setValue={setTeam} className={'dropbtn'}/>
             <Input handleSubmit={handleSubmit}
                 value={value} setValue={setValue} />
             <div className='dropdown'>

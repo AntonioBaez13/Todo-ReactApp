@@ -5,6 +5,7 @@ import { faUsersRectangle,faXmark, faNoteSticky, faBarsProgress, faClock,
 import DatePicker from 'react-datepicker'
 import './EditTodoModal.css';
 import "react-datepicker/dist/react-datepicker.css";
+import { Dropdown } from './GlobalFunctions';
 
 function Modal(props){
     if(!props.show) {
@@ -33,6 +34,7 @@ function ModalHeader(props){
 function ModalBody(props) {
     const content = props.content;
     console.log(content)
+    
     return (
         <div className='modal-body'>
             <div>
@@ -43,25 +45,15 @@ function ModalBody(props) {
                 <div>
                     <div>
                         <label className='modal-label'><FontAwesomeIcon icon={faClock} />Date Added</label>
-                        <DatePickerModal/>
+                        <DatePicker selected={new Date(content.created)} disabled />
                     </div>
-                    <div>
-                        <label className='modal-label'><FontAwesomeIcon icon={faBarsProgress} />Status</label>
-                        <select>
-                            <option value="new">New</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Done">Done</option>
-                        </select>
-                    </div>  
-                    <div>
-                        <label className='modal-label'><FontAwesomeIcon icon={faUsersRectangle} />Team</label>
-                        <input type="text" placeholder="Team dropdown"></input>
-                    </div>
+                    <StatusDropDown defaultSelection = {content.isCompleted}/>
+                    <TeamDropDown defaultSelection={content.teamName} />
                 </div>
                 <div>
                     <div>
                         <label className='modal-label'><FontAwesomeIcon icon={faCalendarXmark} />Deadline</label>
-                        <DatePickerModal/>
+                        <DatePickerModal date={content.dueDate}/>
                     </div>
 
                     <div>
@@ -90,7 +82,8 @@ function ModalFooter(props) {
 }
 
 function DatePickerModal(props){
-    const [startDate, setStartDate] = useState(null);
+    const date = props.date;
+    const [startDate, setStartDate] = useState(date==null? null : new Date(date));
     return (
     <DatePicker
         selected={startDate}
@@ -98,6 +91,40 @@ function DatePickerModal(props){
         minDate={new Date()}
         onChange={(date) => setStartDate(date)}
     />);
+}
+
+function StatusDropDown(props){
+    const statuses = ['New', 'In Progress', 'Done'];
+    const [selectedOption, setSelectedOption] = useState('New');
+    return(
+        <div>
+            <label className='modal-label'><FontAwesomeIcon icon={faBarsProgress} />Status</label>
+            <Dropdown 
+                className={'modal-dropbtn'}
+                value={selectedOption}
+                setValue={setSelectedOption}
+                list={statuses}
+                defaultText={'Select '}
+            />
+        </div>  
+    )
+}
+
+function TeamDropDown(props) {
+    const teams = ['Daybreak', 'DevOps', 'Others', 'Mobile']
+    const [selectedOption, setSelectedOption] = useState(props.defaultSelection == null ? '' : props.defaultSelection);
+    return (
+        <div>
+            <label className='modal-label'><FontAwesomeIcon icon={faUsersRectangle} />Team</label>
+            <Dropdown 
+                className={'modal-dropbtn'}
+                value={selectedOption}
+                setValue={setSelectedOption}
+                list={teams}
+                defaultText={'Select'}
+            />
+        </div>
+    )
 }
 
 export default Modal;

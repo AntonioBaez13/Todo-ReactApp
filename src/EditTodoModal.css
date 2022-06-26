@@ -69,7 +69,7 @@ h2.modal-title-format{
     margin: 0px;
 }
 
-.subsection-pairs div div{
+.subsection-pairs > div > div{
     margin-bottom: 10px;
 }
 
@@ -101,6 +101,18 @@ h2.modal-title-format{
 .closemodal-button:hover{
     color: black;
 }
+
+.modal-dropbtn {
+    min-width: 160px;
+    max-height: 25px;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    font-size: 14px;
+    cursor: pointer;
+    border-color: grey;
+    border-width: thin;
+}
+
 /*DatePicker Styling and changes*/
 .react-datepicker-wrapper,
 .react-datepicker__input-container,
