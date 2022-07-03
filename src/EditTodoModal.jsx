@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsersRectangle,faXmark, faNoteSticky, faBarsProgress, faClock, 
     faCalendarXmark, faPeopleGroup} from '@fortawesome/free-solid-svg-icons';
@@ -6,8 +6,21 @@ import DatePicker from 'react-datepicker'
 import './EditTodoModal.css';
 import "react-datepicker/dist/react-datepicker.css";
 import { Dropdown } from './GlobalFunctions';
+import { TodoItemViewModel } from './Commands';
+import axios from 'axios';
+
+let todoItem;
 
 function Modal(props){
+    todoItem = new TodoItemViewModel(props.modalContent);
+    const [todoItemObject, setTodoItemObject] = new useState(todoItem);
+
+    const updateTodoItem = async(e) => {
+        const resp = await axios.put(`https://localhost:5000/api/todo/${todoItemObject.id}`,
+        todoItemObject);
+        //Maybe Here i can trigger an update to the list of TODOS to reflect changes
+    }
+
     if(!props.show) {
         return null;
     }
@@ -16,8 +29,8 @@ function Modal(props){
         <div className='modal-window' onClick={props.close}>
             <div className='modal-content' onClick={e=> e.stopPropagation()}>
                 <ModalHeader close = {props.close}/>
-                <ModalBody content={props.modalContent}/>
-                <ModalFooter/>
+                <ModalBody content={todoItemObject} updateContent={setTodoItemObject}/>
+                <ModalFooter updateTodoItem={updateTodoItem}/>
             </div>
         </div>
     );
@@ -33,13 +46,13 @@ function ModalHeader(props){
 
 function ModalBody(props) {
     const content = props.content;
-    console.log(content)
     
     return (
         <div className='modal-body'>
             <div>
-                <h2 className='modal-title-format' contentEditable={true} 
-                suppressContentEditableWarning={true}>{content.task}</h2>
+                <textarea className='modal-title-format' rows={1}
+                onChange={event => props.updateContent(prev => ({...prev, task:(event.target.value)}))}
+                value={content.task}></textarea>
             </div>
             <div className='subsection-pairs'>
                 <div>
@@ -47,13 +60,13 @@ function ModalBody(props) {
                         <label className='modal-label'><FontAwesomeIcon icon={faClock} />Date Added</label>
                         <DatePicker selected={new Date(content.created)} disabled />
                     </div>
-                    <StatusDropDown defaultSelection = {content.isCompleted}/>
-                    <TeamDropDown defaultSelection={content.teamName} />
+                    <StatusDropDown defaultSelection = {content.isCompleted} updateContent={props.updateContent}/>
+                    <TeamDropDown defaultSelection={content.teamName} updateContent={props.updateContent} />
                 </div>
                 <div>
                     <div>
                         <label className='modal-label'><FontAwesomeIcon icon={faCalendarXmark} />Deadline</label>
-                        <DatePickerModal date={content.dueDate}/>
+                        <DatePickerModal date={content.dueDate} updateContent={props.updateContent} />
                     </div>
 
                     <div>
@@ -65,7 +78,10 @@ function ModalBody(props) {
             <div className='modal-notes'>
                 <label className='modal-label'><FontAwesomeIcon icon={faNoteSticky} />Notes</label>
                     <form>
-                        <textarea className='modal-note-area' placeholder='Notes...'></textarea>
+                        <textarea className='modal-note-area' placeholder={'Notes..'} 
+                        value={content.notes !== null ? content.notes : undefined }
+                        onChange={event => props.updateContent(prev => ({ ...prev, notes: (event.target.value) }))}>
+                        </textarea>
                     </form>
             </div>            
         </div>
@@ -76,14 +92,20 @@ function ModalBody(props) {
 function ModalFooter(props) {
     return (
         <div className='modal-footer'>
-            <button className='save-modal-button'>Save Changes</button>
+            <button className='save-modal-button' onClick={props.updateTodoItem}>Save Changes</button>
         </div>
     );
 }
 
 function DatePickerModal(props){
     const date = props.date;
+    const updateContent = props.updateContent;
     const [startDate, setStartDate] = useState(date==null? null : new Date(date));
+
+    useEffect(() => {
+        updateContent(prev => ({ ...prev, dueDate : new Date(startDate).toISOString()}))
+    }, [startDate,updateContent]);
+
     return (
     <DatePicker
         selected={startDate}
@@ -95,7 +117,13 @@ function DatePickerModal(props){
 
 function StatusDropDown(props){
     const statuses = ['New', 'In Progress', 'Done'];
+    const updateContent = props.updateContent;
     const [selectedOption, setSelectedOption] = useState('New');
+
+    useEffect(() => {
+        updateContent(prev => ({ ...prev, isCompleted: (selectedOption === 'Done' ? true : false) }))
+    }, [selectedOption,updateContent]);
+
     return(
         <div>
             <label className='modal-label'><FontAwesomeIcon icon={faBarsProgress} />Status</label>
@@ -112,7 +140,13 @@ function StatusDropDown(props){
 
 function TeamDropDown(props) {
     const teams = ['Daybreak', 'DevOps', 'Others', 'Mobile']
+    const updateContent = props.updateContent;
     const [selectedOption, setSelectedOption] = useState(props.defaultSelection == null ? '' : props.defaultSelection);
+
+    useEffect(() => {
+        updateContent(prev => ({ ...prev, teamName: selectedOption }))
+    }, [selectedOption,updateContent]);
+
     return (
         <div>
             <label className='modal-label'><FontAwesomeIcon icon={faUsersRectangle} />Team</label>

@@ -39,6 +39,9 @@ function TodoItem(props) {
 }
 
 function TodoTextAndCheckbox(props){
+    //Todo, edit the span 'checkmark' so that it can also handle the InProgress status 
+    //have 3 class names (New, In Progress, Completed) 
+    //and switch between classNames, based on value
     return (
         <label className='container'>{props.todo}
             <input type="checkbox"></input>

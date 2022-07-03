@@ -11,9 +11,17 @@
     justify-content: center;
 }
 
-h2.modal-title-format{
-    margin: 0 20px;
+textarea.modal-title-format{
+    margin: 0 20px !important;
     border: 2px solid transparent;
+    width: 90%;
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    font-weight: bold;
+    resize: none;
+    overflow: auto;
 }
 
 .modal-title-format:hover {
