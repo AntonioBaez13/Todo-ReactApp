@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import './ListOfTodos.css';
 import Modal from './EditTodoModal'
+import { TodoItemViewModel } from './Commands';
 
 //const axios = require('axios').default;
 
@@ -23,17 +24,18 @@ function TodoList(props){
 }
 
 function TodoItem(props) {
-    const todo = props;
+    const todo = new TodoItemViewModel(props);
     const[isOpen, setIsOpen] = useState(false);
+    const[todoItem, setTodoItem] = useState(todo);
 
     const openModal = () => setIsOpen(true);
     const closeModal = () => setIsOpen(false);
 
     return (
         <div className='todo-item'>
-        <TodoTextAndCheckbox todo={todo.task}/>
-        <button className='edit-todo' onClick={openModal}><FontAwesomeIcon icon={faPenToSquare}/></button>
-        <Modal close={closeModal} show={isOpen} modalContent = {todo}></Modal>
+            <TodoTextAndCheckbox todo={todoItem.task}/>
+            <button className='edit-todo' onClick={openModal}><FontAwesomeIcon icon={faPenToSquare}/></button>
+            <Modal close={closeModal} show={isOpen} modalContent={todoItem} updateModalContent={setTodoItem}></Modal>
         </div>
     );
 }

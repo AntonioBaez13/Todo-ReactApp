@@ -6,19 +6,20 @@ import DatePicker from 'react-datepicker'
 import './EditTodoModal.css';
 import "react-datepicker/dist/react-datepicker.css";
 import { Dropdown } from './GlobalFunctions';
-import { TodoItemViewModel } from './Commands';
 import axios from 'axios';
 
 let todoItem;
 
 function Modal(props){
-    todoItem = new TodoItemViewModel(props.modalContent);
+    todoItem = props.modalContent;
     const [todoItemObject, setTodoItemObject] = new useState(todoItem);
 
     const updateTodoItem = async(e) => {
-        const resp = await axios.put(`https://localhost:5000/api/todo/${todoItemObject.id}`,
-        todoItemObject);
-        //Maybe Here i can trigger an update to the list of TODOS to reflect changes
+        await axios.put(`https://localhost:5000/api/todo/${todoItemObject.id}`,
+            todoItemObject).then(() => {
+                props.updateModalContent(todoItemObject);
+                props.close();
+            });
     }
 
     if(!props.show) {
