@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Header } from './ListOfTodos';
-import { getFormattedDate } from './GlobalFunctions';
+import { getFormattedDate, getTeamName } from './GlobalFunctions';
 import './ListOfTesters.css';
 import './ListOfTodos.css';
 import './TopBar.css';
@@ -59,10 +59,10 @@ function Card(props){
         <div className='tester-card'>
             <span className='avatar'>
                 <span className='avatar-initials'>{getNameInitials()}</span>
-            </span>
+            </span>     
             <div className='info'>
                 <div className='name'>{getName()}</div>
-                <div className='team'>{tester.teamName}</div>
+                <div className='team'>{getTeamName(tester.teamName)}</div>
                 <div className='experience'>
                     <div><span className='bold'>Hub Since: </span> {getFormattedDate(tester.joinedHub)}</div>
                     <div className='reviewer'><span className='bold'>Code Reviewer: </span> {tester.codeReviewer === true ? "Yes" : "No"}</div>

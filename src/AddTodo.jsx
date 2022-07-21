@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import './AddTodo.css';
+import { TeamNames } from './Enums';
 import { Dropdown } from './GlobalFunctions';
-const utils = {
-    teams: ['Daybreak', 'DevOps', 'Others', 'Mobile'],
-}
+import { ListOfTeams } from './GlobalFunctions';
 
 const axios = require('axios').default;
 
@@ -31,7 +30,8 @@ function AddTodo(props) {
         const resp = await axios.post('https://localhost:5000/api/Todo',{
             'task':value,
             'created':new Date(),
-            'teamName': team ==='' ? null : team
+            'teamName': team === '' ? null : TeamNames[team],
+            'status': 0 
         });
         props.addTodo(resp.data)
         setValue('');
@@ -40,12 +40,12 @@ function AddTodo(props) {
 
     return (
         <div className='rowC'>
-            <Dropdown list={utils.teams} defaultText={"Choose a team"}
+            <Dropdown list={ListOfTeams} defaultText={"Choose a team"}
                 value={team} setValue={setTeam} className={'dropbtn'}/>
             <Input handleSubmit={handleSubmit}
                 value={value} setValue={setValue} />
             <div className='dropdown'>
-                <button className='dropbtn' onClick={handleSubmit}>
+                <button className='dropbtn' onClick={handleSubmit} disabled={!value}>
                     Add Item
                 </button>
             </div>

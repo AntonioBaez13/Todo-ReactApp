@@ -5,8 +5,11 @@ import { faUsersRectangle,faXmark, faNoteSticky, faBarsProgress, faClock,
 import DatePicker from 'react-datepicker'
 import './EditTodoModal.css';
 import "react-datepicker/dist/react-datepicker.css";
-import { Dropdown } from './GlobalFunctions';
+import { Dropdown, getStatusName, getTeamName, ListOfStatuses } from './GlobalFunctions';
 import axios from 'axios';
+import { ListOfTeams } from './GlobalFunctions';
+import { TeamNames, TodoItemStatus } from './Enums';
+
 
 let todoItem;
 
@@ -61,7 +64,7 @@ function ModalBody(props) {
                         <label className='modal-label'><FontAwesomeIcon icon={faClock} />Date Added</label>
                         <DatePicker selected={new Date(content.created)} disabled />
                     </div>
-                    <StatusDropDown defaultSelection = {content.isCompleted} updateContent={props.updateContent}/>
+                    <StatusDropDown defaultSelection={content.status} updateContent={props.updateContent}/>
                     <TeamDropDown defaultSelection={content.teamName} updateContent={props.updateContent} />
                 </div>
                 <div>
@@ -117,12 +120,11 @@ function DatePickerModal(props){
 }
 
 function StatusDropDown(props){
-    const statuses = ['New', 'In Progress', 'Done'];
     const updateContent = props.updateContent;
-    const [selectedOption, setSelectedOption] = useState('New');
+    const [selectedOption, setSelectedOption] = useState(props.defaultSelection == null ? '' : getStatusName(props.defaultSelection));
 
     useEffect(() => {
-        updateContent(prev => ({ ...prev, isCompleted: (selectedOption === 'Done' ? true : false) }))
+        updateContent(prev => ({ ...prev, status: TodoItemStatus[selectedOption] }))
     }, [selectedOption,updateContent]);
 
     return(
@@ -132,20 +134,19 @@ function StatusDropDown(props){
                 className={'modal-dropbtn'}
                 value={selectedOption}
                 setValue={setSelectedOption}
-                list={statuses}
-                defaultText={'Select '}
+                list={ListOfStatuses}
+                defaultText={'Select'}
             />
         </div>  
     )
 }
 
 function TeamDropDown(props) {
-    const teams = ['Daybreak', 'DevOps', 'Others', 'Mobile']
     const updateContent = props.updateContent;
-    const [selectedOption, setSelectedOption] = useState(props.defaultSelection == null ? '' : props.defaultSelection);
+    const [selectedOption, setSelectedOption] = useState(props.defaultSelection == null ? '' : getTeamName(props.defaultSelection));
 
     useEffect(() => {
-        updateContent(prev => ({ ...prev, teamName: selectedOption }))
+        updateContent(prev => ({ ...prev, teamName: TeamNames[selectedOption] }))
     }, [selectedOption,updateContent]);
 
     return (
@@ -155,7 +156,7 @@ function TeamDropDown(props) {
                 className={'modal-dropbtn'}
                 value={selectedOption}
                 setValue={setSelectedOption}
-                list={teams}
+                list={ListOfTeams}
                 defaultText={'Select'}
             />
         </div>

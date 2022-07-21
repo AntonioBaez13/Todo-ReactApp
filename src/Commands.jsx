@@ -2,7 +2,7 @@ export class TodoItemViewModel{
     id;
     task;
     notes;
-    isCompleted;
+    status;
     created;
     dueDate;
     dateCompleted;

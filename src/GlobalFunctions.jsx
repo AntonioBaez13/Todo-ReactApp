@@ -1,6 +1,6 @@
 import React from 'react';
 import './globalCss.css'
-
+import { TeamNames, TodoItemStatus } from './Enums';
 export const getFormattedDate = (param1) => {
     var date = new Date(param1);
     let dd = String(date.getDate()).padStart(2, '0');
@@ -26,3 +26,15 @@ export function Dropdown(props) {
     );
 }
 
+export const getTeamName = (enumValue) => {
+    let enumKey = Object.keys(TeamNames).find(key => TeamNames[key] === enumValue);
+    return enumKey;
+}
+
+export const getStatusName = (enumValue) => {
+    let enumKey = Object.keys(TodoItemStatus).find(key => TodoItemStatus[key] === enumValue);
+    return enumKey;
+}
+
+export const ListOfTeams = Object.keys(TeamNames); 
+export const ListOfStatuses = Object.keys(TodoItemStatus);
