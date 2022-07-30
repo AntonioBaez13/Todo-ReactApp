@@ -16,7 +16,7 @@ export class TodoItemViewModel{
         this.id = object.id;
         this.task = object.task;
         this.notes = object.notes;
-        this.isCompleted = object.isCompleted;
+        this.status = object.status;
         this.created = object.created;
         this.dueDate = object.dueDate;
         this.dateCompleted = object.dateCompleted;

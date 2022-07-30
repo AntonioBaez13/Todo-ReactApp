@@ -107,7 +107,7 @@ function DatePickerModal(props){
     const [startDate, setStartDate] = useState(date==null? null : new Date(date));
 
     useEffect(() => {
-        updateContent(prev => ({ ...prev, dueDate : new Date(startDate).toISOString()}))
+        updateContent(prev => ({ ...prev, dueDate : startDate == null ? null : new Date(startDate).toISOString()}))
     }, [startDate,updateContent]);
 
     return (
