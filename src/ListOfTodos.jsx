@@ -32,14 +32,17 @@ function TodoItem(props) {
 
     return (
         <div className='todo-item'>
-            <TodoTextAndCheckbox content={todoItem} updateContent={setTodoItem} />
+            <Checkbox content={todoItem} updateContent={setTodoItem} />
+            <div className='container'>
+                {todoItem.task}
+            </div>
             <button className='edit-todo' onClick={openModal}><FontAwesomeIcon icon={faPenToSquare}/></button>
             <Modal close={closeModal} show={isOpen} modalContent={todoItem} updateModalContent={setTodoItem}></Modal>
         </div>
     );
 }
 
-function TodoTextAndCheckbox(props){
+function Checkbox(props){
     let todoItem = props.content;
     
     //TODO in the future, because at the moment I do not understand how to get this to work in sync
@@ -62,7 +65,7 @@ function TodoTextAndCheckbox(props){
                 return (<span className='checkmarkinprogress' />);
             case 2:
                 return (
-                    <div>
+                    <div className='checkboxcontainer'>
                         <span className='bluecheckmark'/>
                         <span className='checkmarkafter'/>
                     </div>);
@@ -73,9 +76,9 @@ function TodoTextAndCheckbox(props){
     }
 
     return (
-        <label className='container'>{todoItem.task}
+        <span className='checkboxcontainer'>
             <>{renderTodoStatusCircle(todoItem.status)}</>
-        </label>
+        </span>
     );
 }
 
