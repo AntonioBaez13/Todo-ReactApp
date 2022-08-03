@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {TodoContainer} from './ListOfTodos';
-import AddTodo from './AddTodo';
+import {AddTodo} from './AddTodo';
 import TopBar from './TopBar';
 import TestersContainer from './ListOfTesters';
 import axios from 'axios';
@@ -30,7 +30,7 @@ function App(props) {
         <div>
             <TopBar/>
             <div className='box'>
-                <AddTodo addTodo={addTodo} todos={todo} />
+                <AddTodo addTodo={addTodo} />
             </div>
             <div className='main-content'>
                 <TodoContainer todos={todo} />
