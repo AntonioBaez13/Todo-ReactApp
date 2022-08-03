@@ -4,6 +4,7 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import './ListOfTodos.css';
 import Modal from './EditTodoModal'
 import { TodoItemViewModel } from './Commands';
+import { AddTodoContainer } from './AddTodo';
 //import axios from 'axios';
 
 function Header(props){
@@ -86,11 +87,16 @@ function TodoContainer(props) {
     //I need to perform some kind of OnMount,
     //so that when mounting i can get all the items that are on the 
     //database for today
+    const [todo, setTodo] = useState([]);
+    const addTodo = (x) => {
+        setTodo([...todo, x]);
+    };
 
     return (
         <div className='todo-list-container'>
             <Header title={'Todo List'}/>
             <div className='widget-content'>
+                <AddTodoContainer addTodo={addTodo}/>
                 <TodoList todos={props.todos}/>
             </div>
         </div>
