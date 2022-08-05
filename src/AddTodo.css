@@ -1,38 +1,3 @@
-.rowC{
-  display:flex; 
-  flex-direction:row;
-  align-items: center;
-  align-self: center;
-}
-
-.formContainer{
-  margin: 5px;
-  position: relative;
-  display: inline-block;
-}
-
-/*Text field for the Specify Todo*/
-.inputField{
-  min-height: 40px;
-  border: 3px solid #555;
-  border-radius: 20px;
-  text-align: center;
-  padding: 2px 4px;
-}
-
-/*Drop down button layout and size*/
-.dropbtn{
-  min-width: 200px;
-  background-color: #41ced8;
-  color: white;
-  padding:5%;
-  font-size: 24px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-/*WORK IN PROGRESS ALL ADDED BELOW ARE THE NEW CLASSES FOR THE NEW ADD TASK COMPONENT*/
-
 .addnewtodo{
   overflow: visible;
   display: flex;

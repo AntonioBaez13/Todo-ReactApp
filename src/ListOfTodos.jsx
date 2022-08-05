@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import './ListOfTodos.css';
 import Modal from './EditTodoModal'
 import { TodoItemViewModel } from './Commands';
 import { AddTodoContainer } from './AddTodo';
-//import axios from 'axios';
+import axios from 'axios';
 
 function Header(props){
     return (
@@ -84,10 +84,19 @@ function Checkbox(props){
 }
 
 function TodoContainer(props) {
-    //I need to perform some kind of OnMount,
-    //so that when mounting i can get all the items that are on the 
-    //database for today
+    const [isLoading, setLoading] = useState(true);
     const [todo, setTodo] = useState([]);
+
+    useEffect(() => {
+        axios.get('https://localhost:5000/api/Todo/getactivetodos').then(response => {
+            setTodo(response.data);
+            setLoading(false);
+        });
+    }, []);
+
+    if (isLoading) {
+        return (null);
+    }
     const addTodo = (x) => {
         setTodo([...todo, x]);
     };
@@ -97,7 +106,7 @@ function TodoContainer(props) {
             <Header title={'Todo List'}/>
             <div className='widget-content'>
                 <AddTodoContainer addTodo={addTodo}/>
-                <TodoList todos={props.todos}/>
+                <TodoList todos={todo}/>
             </div>
         </div>
     );

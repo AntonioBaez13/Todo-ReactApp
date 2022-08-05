@@ -1,3 +1,8 @@
+.topbarcontainer{
+    display: inline-block;
+    height: 50px;
+}
+
 .topbar{
     background-color:azure;
     box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);

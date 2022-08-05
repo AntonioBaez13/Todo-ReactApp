@@ -8,7 +8,7 @@ function TopBar(props) {
     };
 
     return (
-        <div>
+        <div className='topbarcontainer'>
             <header className='topbar'>
                 <h2 className='topbar-title'>Testing App</h2>
                 <UserSettings userName={user}/>
