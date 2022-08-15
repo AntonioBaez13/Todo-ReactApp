@@ -1,6 +1,7 @@
 import React from 'react';
 import './globalCss.css'
-import { TeamNames, TodoItemStatus } from './Enums';
+import { TeamNames, TimeFrame, TodoItemStatus } from './Enums';
+
 export const getFormattedDate = (param1) => {
     var date = new Date(param1);
     let dd = String(date.getDate()).padStart(2, '0');
@@ -36,5 +37,10 @@ export const getStatusName = (enumValue) => {
     return enumKey;
 }
 
+export const getTimeFrame = (enumValue) => {
+    let enumKey = Object.keys(TimeFrame).find(key => TimeFrame[key] === enumValue);
+    return enumKey;
+}
 export const ListOfTeams = Object.keys(TeamNames); 
 export const ListOfStatuses = Object.keys(TodoItemStatus);
+export const ListOfTimeFrames = Object.values(TimeFrame);

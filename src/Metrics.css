@@ -1,0 +1,58 @@
+.metricsBoxSection{
+    border-radius: 10px;
+    height: fit-content;
+    width: fit-content;
+    border: 3px solid black;
+}
+
+.metrixboxheader{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid black;
+}
+
+.headertext { 
+    display: flex;
+    font-size: 1.8em;
+    font-weight: bold;
+    flex: 1 1 0px;
+    margin-left: 20px;
+}
+
+.timedropdowncontainer{
+   margin-right: 0;
+   margin-left: auto;
+   margin: 5px;
+}
+
+.timesdropdwn{
+    border-radius: 4px;
+    border: 1px solid;
+    min-width: 96px;
+    max-height: 21.5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.progressrings{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.progressrings>div{
+    margin: 10px;
+}
+
+.progressringcontainer{
+    width: 175px;
+    height: 175px;
+}
+
+.ringchildtext{
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+.ringchildtextlabel{
+    font-size: 1.4em;
+}

@@ -23,3 +23,31 @@ export class TodoItemViewModel{
         this.teamName = object.teamName;
     }
 }
+
+export class TaskAddedDateViewModel{
+    totalCreated;
+    new;
+    inProgress;
+    completed;
+
+    constructor(object){
+        if(!object){
+            return;
+        }
+
+        this.totalCreated = object.totalCreated;
+        this.new = object.new;
+        this.inProgress = object.inProgress;
+        this.completed = object.completed;
+    }
+}
+
+export class TasksTimeFrameCommand{
+    date;
+    timeFrame;
+
+    constructor(object){
+        this.date = object.date;
+        this.timeFrame = object.timeFrame;
+    }
+}

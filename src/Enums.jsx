@@ -15,3 +15,10 @@ export const TodoItemStatus = {
     InProgress: 1,
     Completed: 2,
 }
+
+export const TimeFrame = {
+    Today: "Today",
+    Last7Days: "Last 7 Days",
+    Last30Days: "Last 30 Days",
+    AllTime: "All Time",
+}
